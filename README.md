@@ -1,87 +1,163 @@
 <div align="center">
 
-<img src="public/brand/mulya-mark.svg" width="72" height="72" alt="Mūlya" />
+<img src="public/brand/mulya-mark.svg" width="80" height="80" alt="Mūlya logo" />
 
 # Mūlya · मूल्य
 
-**Should-cost estimation for truck part engineering.**
+### Should-cost estimation for truck part engineering
 
-*Mūlya* is Sanskrit for value, price, worth.
+*Mūlya* (Sanskrit): **value, price, worth**
+
+[What it does](#what-it-does) · [Tour](#a-tour-in-screenshots) · [Getting started](#getting-started) · [How it is built](#how-it-is-built) · [Guide](docs/GUIDE.md)
+
+![Mūlya: three sample parts measured into a price](public/brand/mulya-hero.webp)
 
 </div>
 
-Mūlya tells a design engineer what a part **should** cost to make, why, and what to change to bring the cost down, while the design can still change and before a supplier quote arrives. You give it a STEP file. A crew of agents reads the geometry and recommends a manufacturing process, then stops for a human checkpoint. After you confirm, it costs the part end to end: material, conversion, tooling, overhead and margin, with price breaks, what-ifs, a confidence band and a supplier RFQ pack.
+**Mūlya tells a design engineer what a part should cost to make, why, and what to change to bring the cost down,** while the design can still change and before a supplier quote arrives.
 
-It is part of the [Wayam AI](https://github.com/WayamAI) family and shares the Chronos design system.
+You give it a STEP file:
+1. **Read and recommend.** A crew of agents reads the geometry, scores its complexity and recommends a manufacturing process, showing its evidence.
+2. **Human checkpoint.** The crew **stops** here: nothing gets costed against a tool nobody agreed to.
+3. **Cost the route.** Once you confirm, it costs the part end to end. That covers material, conversion, tooling, overhead and margin, plus price breaks by volume, what-ifs, a confidence band and a supplier RFQ pack.
 
+Mūlya is part of the [Wayam AI](https://github.com/WayamAI) family and is built on the **Chronos design system**.
+
+> [!NOTE]
 > **Prototype.** Every figure comes from a seeded catalogue of 50 parts and a rules-based cost model (v0.1) built on standard cost-engineering formulas. There are no live PLM, ERP or sourcing connections, and nothing persists beyond the browser tab.
-
-![Estimate result: Bearing Housing Rev B at € 48.20, € 6.20 over target, with the real CAD part in 3D](docs/screenshots/estimate.webp)
 
 ---
 
-## Contents
+## What it does
 
-- [Who it is for](#who-it-is-for)
-- [What is in here](#what-is-in-here)
-- [Screenshots](#screenshots)
-- [Getting started](#getting-started)
-- [Scripts](#scripts)
-- [How it is built](#how-it-is-built)
-- [3D models](#3d-models)
-- [Project structure](#project-structure)
-- [Performance](#performance)
-- [Limits](#limits)
+| | |
+|---|---|
+| **Estimate from geometry** | Six agents read a STEP file, score complexity, recommend a process and cost it, and you watch them work |
+| **Keep a human in the loop** | The run stops at a checkpoint before anything is costed against a manufacturing route |
+| **Explain the number** | Cost breakdown, top cost drivers, price breaks, tooling amortisation and a confidence band |
+| **Ask "what if?"** | Price design changes (wall, tolerance, material, process, volume) before you make them |
+| **Prove it helped** | Compare any two estimates with a cost-walk waterfall and line-by-line alignment across processes |
+| **Hand it over** | A printable should-cost report and a supplier RFQ pack with a dimensioned drawing sheet |
+| **See the part** | Real CAD models (STEP, STL, GLB) in an interactive 3D viewer, with the production tools that make them |
 
-## Who it is for
+### Who it is for
 
-The same estimate answers four different questions. **Estimate History → Point of view** switches between them.
+The same estimate answers four questions. **Estimate History → Point of view** switches between them.
 
 | Who | Their question |
 |---|---|
-| **Design engineer** (primary user) | *What did I change, and did it help?* |
+| **Design engineer** (primary) | *What did I change, and did it help?* |
 | **Cost engineer** | *Where are we against target, and is the estimate holding up?* |
 | **Purchasing** | *What is this worth per year, and what are we committing to in tooling?* |
 | **Programme manager** | *Which programmes are carrying cost risk?* |
 
-A full walkthrough, with concepts and a ten-minute demo script, is in **[docs/GUIDE.md](docs/GUIDE.md)**.
+---
 
-## What is in here
+## A tour in screenshots
 
-| Page | Route | What it does |
-|---|---|---|
-| **Dashboard** | `/` | Estimates, average variance, parts over target and annual saving, with sparklines, the variance trend, parts needing attention and a live 3D part |
-| **New Estimate** | `/new-estimate` | Upload or pick a STEP file. Six agents read it, recommend a process and **stop at a human checkpoint**, then cost the confirmed route |
-| **Estimate** | `/estimate` | Piece price and confidence range, target status, 3D part, cost breakdown, top drivers, price breaks, tooling and what-ifs |
-| **Report** | `/report` | Printable should-cost sheet |
-| **Part Library** | `/library` | 50 parts: search, filter by process, material, programme, status and region, and sort |
-| **3D Models** | `/models` | Real CAD parts and their production tools, with STEP / STL / GLB downloads |
-| **Estimate History** | `/history` | Every run grouped by day, seen from each persona's point of view |
-| **Compare Estimates** | `/compare` | Any two estimates: the verdict, a cost-walk waterfall, biggest movers, a spec diff and a line-by-line table that pairs equivalent lines across processes. Shareable via `/compare?a=…&b=…` and exportable as CSV |
-| **Agents** | `/agents` | The crew, the two phases and the checkpoint between them |
-| **Rate Master** | `/rates` | Editable material, machine, regional and overhead rates |
-| **Data & Model** | `/model` | Feature weights, systems of record, and the roadmap to a trained model |
+### 1. Sign in
 
-Across every page:
-- **Currency:** switch EUR / USD / GBP from the top bar.
-- **Search:** press **Ctrl/⌘ K**.
-- **Theme:** light and dark, with no flash on reload.
-- **Sign in:** a cookie-based demo sign-in.
+A demo operator, a cookie session and the same split layout as Chronos. Deep links survive sign-in.
 
-## Screenshots
+![Sign in](docs/screenshots/login.webp)
+
+### 2. Dashboard: where the portfolio stands
+
+- **KPI tiles:** estimates, average variance, parts over target and annual saving, each with a sparkline and a status badge.
+- **Variance trend:** average variance to target, month by month.
+- **Needs attention:** the parts furthest over target.
+- **Latest part:** a live 3D view of the most recent part.
+
+Light by default, dark as a toggle.
+
+| Light | Dark |
+|---|---|
+| ![Dashboard, light](docs/screenshots/dashboard.webp) | ![Dashboard, dark](docs/screenshots/dashboard-dark.webp) |
+
+### 3. New Estimate: the agents read the part, then stop
+
+Drop a STEP file or start from a sample part. **Geometry** reads the solid, and **Process** weighs the evidence and recommends a route. Then the crew **stops at the human checkpoint** and waits for a person to confirm.
+
+| Start | The run at the human checkpoint |
+|---|---|
+| ![New Estimate drop zone](docs/screenshots/new-estimate-start.webp) | ![Agents at the human checkpoint](docs/screenshots/new-estimate.webp) |
+
+Every recommendation carries its evidence: each measured signal, what it implies, and which process it favours or rules out.
+
+![Process inference with evidence](docs/screenshots/new-estimate-process.webp)
+
+After you confirm, the remaining agents cost the route. **Tooling** sizes and prices the tool in 3D and shows exactly how it lands on the piece price. **Share** assembles a supplier RFQ pack with a dimensioned, first-angle drawing sheet.
+
+| Tooling | Supplier pack |
+|---|---|
+| ![Mould and tooling](docs/screenshots/new-estimate-tooling.webp) | ![Drawing sheet and RFQ pack](docs/screenshots/new-estimate-share.webp) |
+
+### 4. Estimate: the number, and why
+
+- **Price:** the piece price with its confidence range, its status against target, and the actual supplier quote.
+- **Volume:** lot quantities to reprice by batch size.
+- **Part:** the real CAD part in 3D.
+- **Why:** the cost breakdown and the top cost drivers.
+
+![Estimate result](docs/screenshots/estimate.webp)
+
+**Price breaks** show how tooling amortises with volume. **What-ifs** price a design change before you make it, whether it saves money or costs more.
+
+| Price breaks | What if… |
+|---|---|
+| ![Price breaks](docs/screenshots/estimate-price-breaks.webp) | ![What-ifs](docs/screenshots/estimate-what-if.webp) |
+
+### 5. Compare: prove it helped
+
+Put any two estimates side by side: two revisions, a library part, or the estimate you just made. The page opens on the verdict:
+- **KPI strip:** Δ per piece, annual impact at an editable volume, each side against target, and the tooling change with its breakeven point.
+- **Sharing:** copy a link (`/compare?a=…&b=…`) or download a CSV.
+
+![Compare Estimates](docs/screenshots/compare.webp)
+
+The **cost walk** bridges one price to the other by category. The **line-by-line** table pairs equivalent lines even when two processes name them differently, and reconciles to the cent.
+
+| Cost walk | Line by line |
+|---|---|
+| ![Cost walk waterfall](docs/screenshots/compare-cost-walk.webp) | ![Line-by-line comparison](docs/screenshots/compare-lines.webp) |
+
+### 6. 3D Models: real CAD, not placeholders
+
+The three sample parts are real B-rep solids built with OpenCascade.
+
+- **Viewer controls:** orbit, zoom, Iso / Front / Top / Right views, CAD edge lines, wireframe, X-ray, a section plane and fullscreen.
+- **Downloads:** STEP, STL and GLB.
+- **Tools:** each part's production tool opens and closes in 3D.
+
+![3D Models](docs/screenshots/models.webp)
+
+| Section view | Production tools |
+|---|---|
+| ![Section view of the bearing housing](docs/screenshots/models-section.webp) | ![Pattern, progressive die and HPDC die](docs/screenshots/models-tooling.webp) |
+
+### 7. Everything else
 
 | | |
 |---|---|
-| ![Sign in](docs/screenshots/login.webp) **Sign in** | ![Dashboard](docs/screenshots/dashboard.webp) **Dashboard** |
-| ![New Estimate at the human checkpoint](docs/screenshots/new-estimate.webp) **New Estimate: the agents stop at the human checkpoint** | ![Compare Estimates](docs/screenshots/compare.webp) **Compare: verdict, KPIs and the cost walk** |
-| ![3D Models](docs/screenshots/models.webp) **3D Models: real CAD parts and tools** | ![Agents](docs/screenshots/agents.webp) **Agents: the crew and the checkpoint** |
-| ![Rate Master in dark mode](docs/screenshots/rates.webp) **Rate Master (dark)** | ![Estimate](docs/screenshots/estimate.webp) **Estimate result** |
+| ![Part Library](docs/screenshots/library.webp) **Part Library:** 50 parts, filterable and sortable | ![Estimate History](docs/screenshots/history.webp) **Estimate History:** runs by day, per persona |
+| ![Agents](docs/screenshots/agents.webp) **Agents:** the crew, the phases and the checkpoint | ![Rate Master](docs/screenshots/rates.webp) **Rate Master (dark):** editable rates with pending changes |
+| ![Data & Model](docs/screenshots/model.webp) **Data & Model:** feature weights, systems of record, roadmap | ![Cost Report](docs/screenshots/report.webp) **Cost Report:** a print-ready should-cost sheet |
+
+### 8. On a phone
+
+Every page works down to 390 px wide.
+
+![Mobile: dashboard, new estimate, compare and 3D models](docs/screenshots/mobile.webp)
+
+---
 
 ## Getting started
 
 Requires **Node.js 20+**.
 
 ```bash
+git clone https://github.com/WayamAI/Mulya.git
+cd Mulya
 npm install
 npm run dev
 ```
@@ -95,44 +171,41 @@ Open [http://localhost:3000](http://localhost:3000). Visits without a session go
 | Email | `operator@mulya.ai` |
 | Password | `estimate` |
 
-Click the demo link under the form to fill both in. This is a local cookie session (`mulya-session`), not an identity provider. Sign out from the avatar menu in the top bar. Deep links survive sign-in: `/login?next=…` returns you to where you were headed.
+Click the demo link under the form to fill both in. This is a local cookie session (`mulya-session`), not an identity provider. Sign out from the avatar menu in the top bar.
 
-## Scripts
+> [!TIP]
+> For a ten-minute demo script with talking points, read **[docs/GUIDE.md](docs/GUIDE.md)**.
+
+### Scripts
 
 | Script | What it does |
 |---|---|
 | `npm run dev` | Development server |
-| `npm run build` | Production build (all routes prerender statically) |
+| `npm run build` | Production build (every route prerenders statically) |
 | `npm run start` | Serve the production build |
 | `npm run lint` | ESLint |
-| `npm run cad` | Rebuild the real CAD parts with OpenCascade (about 2 min) |
+| `npm run cad` | Rebuild the CAD parts with OpenCascade (about 2 min) |
 | `npm run models:web` | Compress the CAD meshes and edges into the viewer's `*.web.glb` (meshopt) |
 | `npm run models` | Export the production tools (pattern, progressive die, HPDC die) as GLB |
-| `npm run marks:sizes` | Generate the 96 px and 192 px copies of the 3D marks |
+| `npm run marks:sizes` | Generate the 96 px and 192 px copies of the 3D icons |
+
+---
 
 ## How it is built
 
-- **[Next.js 16](https://nextjs.org) (App Router), React 19, TypeScript (strict).**
-- **Tailwind CSS v4** on the **Chronos design system**:
-  - semantic tokens live in `src/styles/tokens.css`;
-  - Geist for UI text, Michroma for titles and hero figures;
-  - light by default, dark as a toggle.
-- **Shared UI kit** in `src/components/ui`:
-  - badges, where every status carries an icon and a label, never colour alone;
-  - tables, fields with units and edited/invalid states, and a custom accessible dropdown;
-  - segmented controls, KPI tiles with sparklines, empty states and skeletons.
-  - Browse them all at **`/dev/ui`**.
-- **Cost logic** in `src/lib/costing`: pure, typed functions and data (the estimate subject, breakdowns, tooling, process detection, agents, comparison).
-- **3D** with **three.js**:
-  - a shared stage in `src/components/mulya/three-stage.ts` with ACES tone mapping, a room environment for metal reflections, soft shadows and orbit controls;
-  - view presets, CAD edge lines, wireframe, X-ray, a section plane and fullscreen.
-- **Charts** with **recharts**; **PDF** RFQ packs with **jsPDF**, loaded only on download.
-- **Auth:** `src/proxy.ts` redirects signed-out requests to `/login`. Static files stay public.
-- **3D marks:** 3D icons rendered in Google Flow from the prompts in [`prompts.md`](prompts.md), with backgrounds removed, served as transparent WebP from `public/images/marks`.
+| Layer | What |
+|---|---|
+| **Framework** | [Next.js 16](https://nextjs.org) (App Router), React 19, TypeScript (strict) |
+| **Design system** | Tailwind CSS v4 on the Chronos semantic tokens (`src/styles/tokens.css`). Geist for UI, Michroma for titles and figures. Light and dark |
+| **UI kit** | `src/components/ui`: badges (status is never colour alone), tables, fields, a custom accessible dropdown, segmented controls, KPI tiles, empty states. Browse it at **`/dev/ui`** |
+| **Cost model** | `src/lib/costing`: pure, typed data and functions for the estimate, breakdowns, tooling, process detection, agents and comparison |
+| **3D** | three.js on a shared stage: ACES tone mapping, environment reflections, soft shadows, orbit controls, section planes |
+| **CAD** | OpenCascade (`replicad`) builds the parts in `scripts/build-cad.mjs`; `gltf-transform` + meshopt compress them for the web |
+| **Charts, PDF** | recharts; jsPDF for the RFQ pack (loaded only when you download) |
+| **Auth** | `src/proxy.ts` sends signed-out requests to `/login`; static files stay public |
+| **Icons** | 3D icons rendered from [`prompts.md`](prompts.md) in Google Flow, with backgrounds removed and served as transparent WebP |
 
-## 3D models
-
-The three sample parts are **real B-rep solids**, modelled with OpenCascade (`replicad`) in `scripts/build-cad.mjs` to the dimensions the app shows:
+### The sample parts
 
 | Part | Process · material | Envelope |
 |---|---|---|
@@ -141,56 +214,66 @@ The three sample parts are **real B-rep solids**, modelled with OpenCascade (`re
 | DTV-CVR-0288 Gearbox End Cover Rev C | HPDC · EN AC-43000 (AlSi10Mg) | 196 × 196 × 48 mm |
 
 Each part ships as:
-- **STEP AP214:** carries the original header, product record and design notes, under the file names the app uses (e.g. `DTV-HSG-0431_Bearing-Housing_RevB.step`).
-- **STL** and **GLB**.
-- **Edge lines:** a CAD feature-edge file.
-- **Viewer file:** a meshopt-compressed `*.web.glb` that the viewer loads, about 80 to 90% smaller.
+- **STEP AP214**, under the file names the app uses (they double as sample uploads);
+- **STL** and **GLB**, plus a CAD edge-line file;
+- a compressed **`*.web.glb`**, which the viewer loads.
 
-Everything is in [`public/models`](public/models/README.md). The STEP files double as sample uploads for New Estimate.
+See [`public/models`](public/models/README.md).
 
-## Project structure
+### Project structure
 
 ```text
 src/
-  app/                 routes (App Router); one folder per page, plus login and dev/ui
+  app/                 one folder per route, plus login and dev/ui
   components/
     ui/                shared kit: badge, button, dropdown, field, segmented, table, primitives, mark
-    layout/            app shell, sidebar, top bar (breadcrumb trail), account menu
+    layout/            app shell, sidebar, top bar with breadcrumb trail, account menu
     mulya/             3D viewers (lazy wrappers + implementations), page chrome, status chips
     <page>/            page-specific components (dashboard, estimate, new-estimate, compare, …)
   lib/
     costing/           cost model data and pure functions
-    models/            part metadata, CAD loading, procedural geometry fallbacks
+    models/            part metadata, CAD loading, procedural fallbacks
     auth/              demo session
-    marks.ts           registry of 3D marks per route, process, tool, agent and persona
+    marks.ts           3D icon registry per route, process, tool, agent and persona
   styles/tokens.css    Chronos semantic tokens (light + dark)
   proxy.ts             auth gate
 public/
-  brand/               logo mark, hero banner, social card
-  images/marks/        3D marks (512 px, plus 96 and 192 px copies)
+  brand/               logo, hero banner, social card
+  images/marks/        3D icons (512 px, plus 96 and 192 px copies)
   models/              CAD parts and production tools
-scripts/               CAD build, model compression, tool export, mark sizes
+scripts/               CAD build, model compression, tool export, icon sizes
 docs/                  GUIDE.md and screenshots
 ```
 
-## Performance
+### Performance
 
 Measured on a production build with Lighthouse (mobile, throttled):
-- **Static rendering:** every route prerenders statically. The theme is applied before paint by a tiny inline script instead of reading cookies on the server.
+
+| Page | Score before → after | Total blocking time |
+|---|---|---|
+| Estimate | 55 → **91** | 2,240 → 151 ms |
+| New Estimate | 79 → **93** | 213 → 55 ms |
+| Dashboard | 66 → **84** | 561 → 201 ms |
+| 3D Models | 55 → **80** | 2,920 → 589 ms |
+
+How it got there:
+- **Static rendering:** every route prerenders statically. The theme is applied before paint by a tiny inline script, with no flash on reload.
 - **Lazy heavy code:**
   - three.js, recharts and jsPDF are not in any page's initial bundle;
-  - 3D viewers mount when they near the viewport and the browser is idle, behind same-size placeholders, so there is zero layout shift.
-- **Smaller 3D files:** the viewer meshes are meshopt-compressed, e.g. the bearing housing is 169 KB gzipped, down from 734 KB. Two viewers of the same part share one fetch.
-- **Right-sized icons:** marks load as 96 or 192 px copies with a `srcSet`. Page-header marks load at high priority.
-- **Caching:** HTML, JS and CSS are gzip-compressed; hashed assets are cached immutably, and public media for a week.
+  - 3D viewers mount near the viewport, when the browser is idle, behind same-size placeholders, so layout shift is zero.
+- **Smaller 3D files:** the meshopt-compressed meshes are 77 to 88% smaller.
+- **Smaller icons:** icons load at 96 or 192 px with `srcSet`.
+- **Caching:** HTML, JS and CSS are gzipped; hashed assets are cached immutably.
+
+---
 
 ## Limits
 
-- **No live connections:** Teamcenter, SAP and the other connectors are shown as they would be wired, read-only by design.
-- **Rules, not learning:** model v0.1 is cost-engineering formulas. Data & Model shows the path to a model trained on about 2,000 historical parts.
-- **Three processes:** stamping, sand casting and high-pressure die casting, with machining as a secondary operation.
-- **Demo data:** the cab mount bracket's recorded mass (1.15 kg) is inconsistent with its own blank and sheet thickness. The CAD model is 0.51 kg.
+- **No live connections.** Teamcenter, SAP and the other connectors are shown as they would be wired, read-only by design.
+- **Rules, not learning.** Model v0.1 is cost-engineering formulas. Data & Model shows the path to a model trained on about 2,000 historical parts.
+- **Three processes.** Stamping, sand casting and high-pressure die casting, with machining as a secondary operation.
+- **Demo data.** The cab mount bracket's recorded mass (1.15 kg) doesn't match its own blank and sheet thickness. The CAD model weighs 0.51 kg.
 
 ## License
 
-Private. Wayam AI.
+© Wayam AI. All rights reserved.
