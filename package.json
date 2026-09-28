@@ -1,0 +1,43 @@
+{
+  "name": "mulya",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "models": "node scripts/export-models.mjs",
+    "cad": "node scripts/build-cad.mjs",
+    "models:web": "node scripts/optimize-models.mjs",
+    "marks:sizes": "node scripts/mark-sizes.mjs"
+  },
+  "dependencies": {
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.8",
+    "lucide-react": "^1.34.0",
+    "next": "16.3.3",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "recharts": "^3.10.1",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@gltf-transform/core": "^4.5.0",
+    "@gltf-transform/extensions": "^4.5.0",
+    "@gltf-transform/functions": "^4.5.0",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "^0.180.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.3",
+    "meshoptimizer": "^1.3.0",
+    "replicad": "^1.1.0",
+    "replicad-opencascadejs": "^1.1.0",
+    "sharp": "^0.35.5",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

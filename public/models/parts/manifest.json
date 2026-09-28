@@ -1,0 +1,97 @@
+{
+  "parts": [
+    {
+      "variant": "bearing",
+      "partNumber": "DTV-HSG-0431",
+      "name": "Bearing Housing",
+      "revision": "B",
+      "process": "Sand casting",
+      "material": "EN-GJL-250 (GG25)",
+      "densityGcm3": 7.2,
+      "files": {
+        "step": "DTV-HSG-0431_Bearing-Housing_RevB.step",
+        "stl": "bearing.stl",
+        "glb": "bearing.glb",
+        "edges": "bearing.edges.json"
+      },
+      "units": "mm",
+      "upAxis": "+Y",
+      "bbox": [
+        248,
+        186,
+        94
+      ],
+      "volumeCm3": 1589.2,
+      "surfaceAreaCm2": 1731.9,
+      "massKg": 11.442,
+      "targetMassKg": 12.4,
+      "faceCount": 238,
+      "edgeCount": 629,
+      "triangleCount": 48874,
+      "edgeSegmentCount": 27377
+    },
+    {
+      "variant": "bracket",
+      "partNumber": "DTV-BRK-0117",
+      "name": "Cab Mount Bracket",
+      "revision": "B",
+      "process": "Progressive stamping",
+      "material": "HC340LA (EN 10268), t 2.5 mm",
+      "densityGcm3": 7.85,
+      "files": {
+        "step": "DTV-BRK-0117_Cab-Mount-Bracket_RevB.step",
+        "stl": "bracket.stl",
+        "glb": "bracket.glb",
+        "edges": "bracket.edges.json"
+      },
+      "units": "mm",
+      "upAxis": "+Y",
+      "bbox": [
+        186,
+        64,
+        92
+      ],
+      "volumeCm3": 65.1,
+      "surfaceAreaCm2": 529.6,
+      "massKg": 0.511,
+      "targetMassKg": 1.15,
+      "faceCount": 50,
+      "edgeCount": 156,
+      "triangleCount": 6952,
+      "edgeSegmentCount": 6820
+    },
+    {
+      "variant": "cover",
+      "partNumber": "DTV-CVR-0288",
+      "name": "Gearbox End Cover",
+      "revision": "C",
+      "process": "High-pressure die casting",
+      "material": "EN AC-43000 (AlSi10Mg)",
+      "densityGcm3": 2.68,
+      "files": {
+        "step": "DTV-CVR-0288_Gearbox-End-Cover_RevC.step",
+        "stl": "cover.stl",
+        "glb": "cover.glb",
+        "edges": "cover.edges.json"
+      },
+      "units": "mm",
+      "upAxis": "+Y",
+      "bbox": [
+        196,
+        196,
+        48
+      ],
+      "volumeCm3": 967,
+      "surfaceAreaCm2": 990.6,
+      "massKg": 2.591,
+      "targetMassKg": 2.8,
+      "faceCount": 125,
+      "edgeCount": 364,
+      "triangleCount": 25940,
+      "edgeSegmentCount": 20312
+    }
+  ],
+  "generatedBy": "scripts/build-cad.mjs (replicad + OpenCascade)",
+  "units": "mm",
+  "upAxis": "+Y"
+}

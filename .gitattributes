@@ -1,0 +1,13 @@
+# Normalise text to LF in the repository, on every platform.
+* text=auto eol=lf
+
+# CAD, 3D and image assets: never touch line endings or diff them as text.
+*.step binary
+*.stp binary
+*.stl binary
+*.glb binary
+*.webp binary
+*.jpg binary
+*.png binary
+*.ico binary
+public/models/parts/*.edges.json -diff

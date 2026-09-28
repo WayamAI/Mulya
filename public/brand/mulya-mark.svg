@@ -1,0 +1,17 @@
+<svg width="1000" height="1000" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1000" height="1000" fill="url(#mulya_tile)"/>
+<!-- Price tag carrying a measured part: value (mūlya) of a made thing. -->
+<path d="M520 230H735C752.673 230 767 244.327 767 262V477C767 485.487 763.629 493.626 757.627 499.627L499.627 757.627C487.13 770.124 466.87 770.124 454.373 757.627L239.373 542.627C226.876 530.13 226.876 509.87 239.373 497.373L497.373 239.373C503.374 233.371 511.513 230 520 230Z" stroke="white" stroke-width="56" stroke-linejoin="round"/>
+<circle cx="655" cy="342" r="42" fill="white"/>
+<path d="M378 520L470 612" stroke="white" stroke-width="44" stroke-linecap="round"/>
+<path d="M438 460L530 552" stroke="white" stroke-width="44" stroke-linecap="round"/>
+<path d="M498 400L590 492" stroke="white" stroke-width="44" stroke-linecap="round" opacity="0.55"/>
+<defs>
+<linearGradient id="mulya_tile" x1="500" y1="0" x2="500" y2="1000" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFA12B"/>
+<stop offset="0.3" stop-color="#FA8D23"/>
+<stop offset="0.65" stop-color="#F0731A"/>
+<stop offset="1" stop-color="#DC440C"/>
+</linearGradient>
+</defs>
+</svg>
