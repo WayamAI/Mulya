@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 
 import { ShellGate } from "@/components/layout/shell-gate";
 import { ThemeProvider } from "@/context/theme-context";
+import { SESSION_GATE_SCRIPT } from "@/lib/auth/session";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import "./globals.css";
 
@@ -28,10 +29,12 @@ const SITE_DESCRIPTION =
 /** Social card, 1200×630. */
 const SOCIAL_IMAGE = { url: "/brand/mulya-og.jpg", width: 1200, height: 630, alt: "Mūlya, manufacturing cost estimation" };
 
-/** Absolute origin for the social image: the Vercel production host when deployed, localhost otherwise. */
-const siteOrigin = process.env.VERCEL_PROJECT_PRODUCTION_URL
-  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : "http://localhost:3000";
+/** Absolute origin for the social image: SITE_ORIGIN (set by the Azure workflow), the Vercel production host, or localhost. */
+const siteOrigin =
+  process.env.SITE_ORIGIN ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
@@ -69,6 +72,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={`${geist.variable} ${michroma.variable} h-full antialiased`}
     >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: SESSION_GATE_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body className="h-full overflow-hidden">
